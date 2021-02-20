@@ -20,6 +20,7 @@ import java.util.List;
 */
 @Mapper
 public interface CityMapper {
+	//
     @Mapping(source = "department.departmentId", target = "departmentId")
     public CityDTO cityToCityDTO(City city);
 
