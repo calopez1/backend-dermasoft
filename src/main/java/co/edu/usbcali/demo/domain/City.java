@@ -29,6 +29,8 @@ public class City implements java.io.Serializable {
 
 			@Id
 	    @Column(name="city_id", unique=true, nullable=false)
+			@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 		@NotNull
 		private Integer cityId;
 		
