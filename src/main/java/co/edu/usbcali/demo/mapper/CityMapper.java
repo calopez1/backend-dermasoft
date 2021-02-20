@@ -20,10 +20,10 @@ import java.util.List;
 */
 @Mapper
 public interface CityMapper {
-    @Mapping(source = "department.departmentId", target = "departmentId_Department")
+    @Mapping(source = "department.departmentId", target = "departmentId")
     public CityDTO cityToCityDTO(City city);
 
-    @Mapping(source = "departmentId_Department", target = "department.departmentId")
+    @Mapping(source = "departmentId", target = "department.departmentId")
     public City cityDTOToCity(CityDTO cityDTO);
 
     public List<CityDTO> listCityToListCityDTO(List<City> citys);

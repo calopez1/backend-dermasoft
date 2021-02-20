@@ -41,5 +41,5 @@ public class CityDTO implements Serializable {
     @NotEmpty
     @Size(max = 1)
     private String validRegister;
-    private Integer departmentId_Department;
+    private Integer departmentId;
 }
