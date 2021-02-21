@@ -13,12 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
-* @author Zathura Code Generator Version 9.0 http://zathuracode.org/
-* www.zathuracode.org
-* 
-*/
+ * @author Zathura Code Generator Version 9.0 http://zathuracode.org/
+ *         www.zathuracode.org
+ * 
+ */
 @Entity
-@Table ( name="eps", schema="public" )
+@Table(name = "eps", schema = "public")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,29 +26,27 @@ public class Eps implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "eps_id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
+	private Integer epsId;
 
-			@Id
-	    @Column(name="eps_id", unique=true, nullable=false)
-		@NotNull
-		private Integer epsId;
-		
-	
-	    
-						@NotNull
-						@NotEmpty
-			@Size(max=255)
-							@Column(name="eps_name"  , nullable=false  )
-		private String epsName;	
-    					@NotNull
-						@NotEmpty
-			@Size(max=1)
-							@Column(name="state"  , nullable=false  )
-		private String state;	
-    					@NotNull
-							@Column(name="valid_register"  , nullable=false  )
-		private Date validRegister;	
-        
-		@OneToMany(fetch=FetchType.LAZY, mappedBy="eps")
-		private List<Patient> patients = new ArrayList<>();	
-        
-}	
+	@NotNull
+	@NotEmpty
+	@Size(max = 255)
+	@Column(name = "eps_name", nullable = false)
+	private String epsName;
+	@NotNull
+	@NotEmpty
+	@Size(max = 1)
+	@Column(name = "state", nullable = false)
+	private String state;
+	@NotNull
+	@Column(name = "valid_register", nullable = false)
+	private Date validRegister;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eps")
+	private List<Patient> patients = new ArrayList<>();
+
+}

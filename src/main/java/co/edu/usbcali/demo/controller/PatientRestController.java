@@ -23,84 +23,83 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-
 /**
-* @author Zathura Code Generator Version 9.0 http://zathuracode.org
-* www.zathuracode.org
-*
-*/
+ * @author Zathura Code Generator Version 9.0 http://zathuracode.org
+ *         www.zathuracode.org
+ *
+ */
 @RestController
 @RequestMapping("/api/v1/patient")
 @CrossOrigin(origins = "*")
 @Slf4j
 public class PatientRestController {
-    @Autowired
-    private PatientService patientService;
-    @Autowired
-    private PatientMapper patientMapper;
+	@Autowired
+	private PatientService patientService;
+	@Autowired
+	private PatientMapper patientMapper;
 
-    @GetMapping(value = "/{patientIdentification}")
-    public ResponseEntity<?> findById(
-        @PathVariable("patientIdentification")
-    String patientIdentification) throws Exception {
-        log.debug("Request to findById() Patient");
+	@GetMapping(value = "/{patientIdentification}")
+	public ResponseEntity<?> findById(@PathVariable("patientIdentification") String patientIdentification)
+			throws Exception {
+		log.debug("Request to findById() Patient");
 
-        Patient patient = (patientService.findById(patientIdentification)
-                                         .isPresent() == true)
-            ? patientService.findById(patientIdentification).get() : null;
+		Patient patient = (patientService.findById(patientIdentification).isPresent() == true)
+				? patientService.findById(patientIdentification).get()
+				: null;
 
-        return ResponseEntity.ok()
-                             .body(patientMapper.patientToPatientDTO(patient));
-    }
+		return ResponseEntity.ok().body(patientMapper.patientToPatientDTO(patient));
+	}
 
-    @GetMapping()
-    public ResponseEntity<?> findAll() throws Exception {
-        log.debug("Request to findAll() Patient");
+	@GetMapping()
+	public ResponseEntity<?> findAll() throws Exception {
+		log.debug("Request to findAll() Patient");
 
-        return ResponseEntity.ok()
-                             .body(patientMapper.listPatientToListPatientDTO(
-                patientService.findAll()));
-    }
+		return ResponseEntity.ok().body(patientMapper.listPatientToListPatientDTO(patientService.findAll()));
+	}
 
-    @PostMapping()
-    public ResponseEntity<?> save(@Valid
-    @RequestBody
-    PatientDTO patientDTO) throws Exception {
-        log.debug("Request to save Patient: {}", patientDTO);
+	@GetMapping("/loginAdmin/{id}/{password}")
+	public ResponseEntity<?> loginAdmin(@PathVariable("id") String id, @PathVariable("password") String password)
+			throws Exception {
+		Patient patient = (patientService.findByPatientIdAndPassword(id, password).isPresent() == true)
+				? patientService.findByPatientIdAndPassword(id, password).get()
+				: null;
 
-        Patient patient = patientMapper.patientDTOToPatient(patientDTO);
-        patient = patientService.save(patient);
+		return ResponseEntity.ok().body(patientMapper.patientToPatientDTO(patient));
 
-        return ResponseEntity.ok()
-                             .body(patientMapper.patientToPatientDTO(patient));
-    }
+	}
 
-    @PutMapping()
-    public ResponseEntity<?> update(@Valid
-    @RequestBody
-    PatientDTO patientDTO) throws Exception {
-        log.debug("Request to update Patient: {}", patientDTO);
+	@PostMapping()
+	public ResponseEntity<?> save(@Valid @RequestBody PatientDTO patientDTO) throws Exception {
+		log.debug("Request to save Patient: {}", patientDTO);
 
-        Patient patient = patientMapper.patientDTOToPatient(patientDTO);
-        patient = patientService.update(patient);
+		Patient patient = patientMapper.patientDTOToPatient(patientDTO);
+		patient = patientService.save(patient);
 
-        return ResponseEntity.ok()
-                             .body(patientMapper.patientToPatientDTO(patient));
-    }
+		return ResponseEntity.ok().body(patientMapper.patientToPatientDTO(patient));
+	}
 
-    @DeleteMapping(value = "/{patientIdentification}")
-    public ResponseEntity<?> delete(
-        @PathVariable("patientIdentification")
-    String patientIdentification) throws Exception {
-        log.debug("Request to delete Patient");
+	@PutMapping()
+	public ResponseEntity<?> update(@Valid @RequestBody PatientDTO patientDTO) throws Exception {
+		log.debug("Request to update Patient: {}", patientDTO);
 
-        patientService.deleteById(patientIdentification);
+		Patient patient = patientMapper.patientDTOToPatient(patientDTO);
+		patient = patientService.update(patient);
 
-        return ResponseEntity.ok().build();
-    }
+		return ResponseEntity.ok().body(patientMapper.patientToPatientDTO(patient));
+	}
 
-    @GetMapping(value = "/count")
-    public ResponseEntity<?> count() {
-        return ResponseEntity.ok().body(patientService.count());
-    }
+	@DeleteMapping(value = "/{patientIdentification}")
+	public ResponseEntity<?> delete(@PathVariable("patientIdentification") String patientIdentification)
+			throws Exception {
+		log.debug("Request to delete Patient");
+
+		patientService.deleteById(patientIdentification);
+
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping(value = "/count")
+	public ResponseEntity<?> count() {
+		return ResponseEntity.ok().body(patientService.count());
+	}
 }

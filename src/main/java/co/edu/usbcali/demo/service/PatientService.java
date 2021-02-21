@@ -6,11 +6,12 @@ import java.math.*;
 
 import java.util.*;
 
-
 /**
-* @author Zathura Code Generator Version 9.0 http://zathuracode.org
-* www.zathuracode.org
-*
-*/
+ * @author Zathura Code Generator Version 9.0 http://zathuracode.org
+ *         www.zathuracode.org
+ *
+ */
 public interface PatientService extends GenericService<Patient, String> {
+	// Método login paciente
+	public Optional<Patient> findByPatientIdAndPassword(String identification, String password);
 }

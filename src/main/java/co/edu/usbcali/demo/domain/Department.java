@@ -13,12 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
-* @author Zathura Code Generator Version 9.0 http://zathuracode.org/
-* www.zathuracode.org
-* 
-*/
+ * @author Zathura Code Generator Version 9.0 http://zathuracode.org/
+ *         www.zathuracode.org
+ * 
+ */
 @Entity
-@Table ( name="department", schema="public" )
+@Table(name = "department", schema = "public")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,34 +26,32 @@ public class Department implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "department_id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
+	private Integer departmentId;
 
-			@Id
-	    @Column(name="department_id", unique=true, nullable=false)
-		@NotNull
-		private Integer departmentId;
-		
-	
-	    
-						@NotNull
-						@NotEmpty
-			@Size(max=2)
-							@Column(name="department_code"  , nullable=false  )
-		private String departmentCode;	
-    					@NotNull
-						@NotEmpty
-			@Size(max=50)
-							@Column(name="description"  , nullable=false  )
-		private String description;	
-    					@NotNull
-						@NotEmpty
-			@Size(max=1)
-							@Column(name="state"  , nullable=false  )
-		private String state;	
-    					@NotNull
-							@Column(name="valid_register"  , nullable=false  )
-		private Date validRegister;	
-        
-		@OneToMany(fetch=FetchType.LAZY, mappedBy="department")
-		private List<City> cities = new ArrayList<>();	
-        
-}	
+	@NotNull
+	@NotEmpty
+	@Size(max = 2)
+	@Column(name = "department_code", nullable = false)
+	private String departmentCode;
+	@NotNull
+	@NotEmpty
+	@Size(max = 50)
+	@Column(name = "description", nullable = false)
+	private String description;
+	@NotNull
+	@NotEmpty
+	@Size(max = 1)
+	@Column(name = "state", nullable = false)
+	private String state;
+	@NotNull
+	@Column(name = "valid_register", nullable = false)
+	private Date validRegister;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+	private List<City> cities = new ArrayList<>();
+
+}
