@@ -57,8 +57,8 @@ public class PatientRestController {
 		return ResponseEntity.ok().body(patientMapper.listPatientToListPatientDTO(patientService.findAll()));
 	}
 
-	@GetMapping("/loginAdmin/{id}/{password}")
-	public ResponseEntity<?> loginAdmin(@PathVariable("id") String id, @PathVariable("password") String password)
+	@GetMapping("/loginPatient/{id}/{password}")
+	public ResponseEntity<?> loginPatient(@PathVariable("id") String id, @PathVariable("password") String password)
 			throws Exception {
 		Patient patient = (patientService.findByPatientIdAndPassword(id, password).isPresent() == true)
 				? patientService.findByPatientIdAndPassword(id, password).get()

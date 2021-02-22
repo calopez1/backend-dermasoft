@@ -155,11 +155,11 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Optional<Patient> findByPatientIdAndPassword(String identification, String password) {
-		if(patientRepository.existsById(identification)==false) {
+		if (patientRepository.existsById(identification) == false) {
 			throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
 		}
-		Patient patient=patientRepository.findById(identification).get();
-		if(bCryptPasswordEncoder.matches(password, patient.getPassword())) {
+		Patient patient = patientRepository.findById(identification).get();
+		if (bCryptPasswordEncoder.matches(password, patient.getPassword()) == false) {
 			throw new ZMessManager("Incorrect password");
 		}
 		return patientRepository.findById(identification);
